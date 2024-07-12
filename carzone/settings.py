@@ -13,12 +13,23 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 import os
+import sys
+import django
+import _locale
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+print(sys.getdefaultencoding())
+print(django.utils.encoding.DEFAULT_LOCALE_ENCODING)
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -75,19 +86,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'carzone.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'carzone_db',
+        'USER': 'postgres',
+        'PASSWORD': 'zovjsolange',
+        'HOST': 'localhost',
+        'PORT': '5432'
+        #'client_encoding':'UTF8'
+
     }
 }
 
 
+
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators.
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -126,6 +147,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'carzone/static'),
 ]
+
+#media settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL='/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

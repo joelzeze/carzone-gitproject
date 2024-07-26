@@ -2,6 +2,10 @@ import psycopg2
 import os
 import django
 
+
+from django.core.cache import cache
+cache.clear()
+
 # Initialiser les paramètres Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'carzone.settings')
 django.setup()
